@@ -1,0 +1,27 @@
+.message{
+  
+    height: 70vh;
+    background-color:slategrey;
+    overflow: auto;
+    padding-bottom: 2em;
+}
+
+.messagebox{
+    background-color:skyblue;
+    color: black;
+    width:30%;
+    height: 4em;
+    margin: 1em;
+    border-radius: 1em;
+    padding: 0.5em;
+}
+
+.messageboxother{
+    background-color: lavender;
+    width:30%;
+    height: 4em;
+    color: black;
+    margin: 1em;
+    border-radius: 1em;
+    padding: 0.5em;
+}
