@@ -5,17 +5,22 @@ import classes from './Message.module.css'
 import Messageout from './messageout'
 const Message = ({messages,name}) => {
 
-    const divRef = useRef(null);
+  const messagesEndRef = useRef(null)
 
-    useEffect(() => {
-      divRef.current.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'end',
-        inline: 'nearest'
-      });
-    });
+const scrollToBottom = () => {
+  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+}
+
+
+useEffect(() => {
+    scrollToBottom()
+  }, [messages]);
+
+   
+
+  
     return (
-            <div  ref={divRef} >
+            <div   >
                         <Container className={[classes.message,'p-2'].join(' ')}  >
     
       {
@@ -27,7 +32,7 @@ const Message = ({messages,name}) => {
             )
         })
       }
-   
+       <div ref={messagesEndRef} />
         </Container>
         </div>
 

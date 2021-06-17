@@ -14,9 +14,9 @@ const Messageout = ({name,message:{user,text}}) => {
     return (
         issentbyuser?(
             <div className='d-flex justify-content-end'>
-                 <p style={{color:'black'}}> by {user}</p>
+                 <p style={{color:'black',opacity:'0.5',margin:'0px'}}> {user}</p>
            <div className={[classes.messagebox,' '].join(' ')}>
-          <strong> <p>{Reactemoji.emojify(text)}</p></strong>
+          <strong> <p  style={{color:'black',opacity:'0.5',margin:'0px'}}>{Reactemoji.emojify(text)}</p></strong>
           
            </div>
            </div>
@@ -24,10 +24,10 @@ const Messageout = ({name,message:{user,text}}) => {
             <>
              <div className='d-flex justify-content-start'>
            <div className={[classes.messageboxother,' '].join(' ')}>
-           <strong> <p>{Reactemoji.emojify(text)}</p></strong>
+           <strong> <p style={{color:'black',opacity:'0.5',margin:'0px'}}>{Reactemoji.emojify(text)}</p></strong>
           
            </div>
-           <p style={{color:'black'}}> by {user}</p>
+           <p style={{color:'black'}}>{user}</p>
            </div>
            
             </>

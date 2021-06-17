@@ -22,8 +22,8 @@ const App = () => {
           roomno:room,
           setContext:set
       }}>
-         <Header name='MyChat' color='dark' bgcolor='primary' />
-        <main style={{height:'84vh'}}>
+         <Header name='MyChat' color='light' bgcolor='light' />
+        <main  style={{height:'84vh'}}>
         
         <Route path='/' exact component={Home}/>
         <Route path='/chat' exact component={Chat} />

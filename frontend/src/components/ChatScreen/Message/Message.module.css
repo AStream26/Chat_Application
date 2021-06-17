@@ -9,8 +9,8 @@
 .messagebox{
     background-color:skyblue;
     color: black;
-    width:30%;
-    height: 4em;
+    width:80%;
+    
     margin: 1em;
     border-radius: 1em;
     padding: 0.5em;
@@ -18,10 +18,11 @@
 
 .messageboxother{
     background-color: lavender;
-    width:30%;
-    height: 4em;
+    width:80%;
+   
     color: black;
     margin: 1em;
     border-radius: 1em;
     padding: 0.5em;
+    opacity: 0.5;
 }

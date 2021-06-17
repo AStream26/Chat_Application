@@ -23,8 +23,9 @@ io.on('connection',(socket)=>{
         }
         
         //emiting event to the frontend
-        socket.emit('message',{user:'admin',text:` welcome ${user.name} to the room ${user.room}`});
-        socket.broadcast.to(user.room).emit('message',{user:'admin',text:`${user.name} landed into the room 👽👽`});
+        const userInRoom  = userControll.getUsersInRoom(room);
+        socket.emit('message',{user:'admin',text:` welcome ${user.name} to the room ${user.room}`,InRoom:userInRoom});
+        socket.broadcast.to(user.room).emit('message',{user:'admin',text:`${user.name} landed into the room 👽👽`,InRoom:userInRoom});
 
         socket.join(user.room);
 
@@ -36,8 +37,9 @@ io.on('connection',(socket)=>{
     socket.on('sendMessage',(message,callback)=>{
         console.log(socket.id);
         const user = userControll.Getuser(socket.id);
-       console.log(user);
-        io.to(user.room).emit('message',{user:user.name,text:message});
+     //  console.log(user);
+     const userInRoom  = userControll.getUsersInRoom(user?.room);
+        io.to(user.room).emit('message',{user:user.name,text:message,InRoom:userInRoom});
 
         callback();
     })

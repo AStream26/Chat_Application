@@ -1,8 +1,10 @@
 import React from 'react'
 import classes from './sidebar.module.css';
 import {ListGroup,ListGroupItem} from 'react-bootstrap'
-const Sidebar = ({messages}) => {
+const Sidebar = ({users}) => {
+   // console.log(users);
     return (
+
         <div className={['m-2',classes.sidebar].join(' ')}>
          
          <nav className="navbar navbar-dark bg-dark rounded">
@@ -12,12 +14,12 @@ const Sidebar = ({messages}) => {
         </nav>
         <ListGroup>
             {
-                messages.map((message,i)=>{
+               users &&  users.map((user,i)=>{
 
-                  return(
-                    <ListGroupItem key={`${i}==1`} style={{textAlign:'center'}}>{message.user}</ListGroupItem>
-                  )
-                })
+                return(
+                  <ListGroupItem key={`${i}==1`} style={{textAlign:'center'}}>{user.name}</ListGroupItem>
+                )
+               })
             }
            
            

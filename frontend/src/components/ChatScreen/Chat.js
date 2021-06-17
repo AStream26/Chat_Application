@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState,useRef } from 'react'
 import { useHistory } from 'react-router';
 import io from 'socket.io-client';
 import UserContext from '../../Context/usercontext';
@@ -15,6 +15,9 @@ let ENDPOINT = 'localhost:4000';
 
 const[messages,setMessages]  = useState([]);
 const[message,setMessage]  = useState('');
+const[users,setusers] = useState([]);
+   
+
 
     useEffect(()=>{
      if(!ctx?.username.trim() || !ctx?.roomno.trim())
@@ -37,6 +40,7 @@ const[message,setMessage]  = useState('');
     
         socket.on('message',(message)=>{
          setMessages([...messages,message]);
+         setusers(message.InRoom);
         })
 
     },[messages])
@@ -57,11 +61,12 @@ const[message,setMessage]  = useState('');
         <Col className='mt-2'>
            <Row>
            <Col xs={12}  >
-             <Header name={ctx.roomno} color='dark' bgcolor='info' />
+             <Header name={ctx.roomno} active={true} users={users} color='dark' bgcolor='dark' />
             </Col>
 
                <Col xs={12} >
                 <Message  messages={messages} name={ctx.username}/>
+               
                </Col>
               <Col xs={12} className={[' '].join(' ')}>
          
@@ -73,7 +78,11 @@ const[message,setMessage]  = useState('');
                     </Col>
                     <Col xs={2} >
                    
-                    <button className={['btn btn-success'].join(' ')} type="button">SEND</button>
+                    <button style={{
+                        width:'6em',
+                        height:'3em',
+                        backgroundColor:'greenyellow'
+                    }} type="button">SEND</button>
                     
                    
                     </Col>
@@ -84,8 +93,8 @@ const[message,setMessage]  = useState('');
            </Row>
             </Col>
 
-            <Col   md={3} >
-             <Sidebar messages={messages} />
+            <Col className='d-none d-md-block'  md={3} >
+             <Sidebar users={users} />
          </Col>
       
         </Row>
