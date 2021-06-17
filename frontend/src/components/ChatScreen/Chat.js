@@ -16,7 +16,7 @@ let ENDPOINT = 'localhost:4000';
 const[messages,setMessages]  = useState([]);
 const[message,setMessage]  = useState('');
 const[users,setusers] = useState([]);
-   
+const[error,seterror]  = useState(null);
 
 
     useEffect(()=>{
@@ -24,8 +24,13 @@ const[users,setusers] = useState([]);
        history.push('/');
 
       socket = io(ENDPOINT, { transports: ['websocket'] });
-    socket.emit('join',{name:ctx.username,room:ctx.roomno},()=>{
-       
+    socket.emit('join',{name:ctx.username,room:ctx.roomno},(error)=>{
+       if(error){
+          seterror(error?.error)
+          setTimeout(()=>{
+          history.push('/');
+          },2000)
+       }
     });
 
     return ()=>{
@@ -56,48 +61,56 @@ const[users,setusers] = useState([]);
   // console.log(message,messages);
 
     return (
+
         <Container>
-        <Row>
-        <Col className='mt-2'>
-           <Row>
-           <Col xs={12}  >
-             <Header name={ctx.roomno} active={true} users={users} color='dark' bgcolor='dark' />
-            </Col>
+            {
+                error?<h3 style={{color:'red'}}>{error}</h3>:(
 
-               <Col xs={12} >
-                <Message  messages={messages} name={ctx.username}/>
-               
-               </Col>
-              <Col xs={12} className={[' '].join(' ')}>
-         
-            <Row>
-                  <Col xs={8} md={10}  ><input type='text' value={message} placeholder='Type a message ....'
-                    onChange={(e)=>setMessage(e.target.value)}
-                    onKeyPress={(e)=>e.key === 'Enter'?sendMessage(e):null}
-                    />
-                    </Col>
-                    <Col xs={2} >
-                   
-                    <button style={{
-                        width:'6em',
-                        height:'3em',
-                        backgroundColor:'greenyellow'
-                    }} type="button">SEND</button>
-                    
-                   
-                    </Col>
-              </Row>
-          
-              </Col>
+                    <Row>
+                    <Col className='mt-2'>
+                       <Row>
+                       <Col xs={12}  >
+                         <Header name={ctx.roomno} active={true} users={users} color='dark' bgcolor='dark' />
+                        </Col>
+            
+                           <Col xs={12} >
+                            <Message  messages={messages} name={ctx.username}/>
+                           
+                           </Col>
+                          <Col xs={12} className={[' '].join(' ')}>
+                     
+                        <Row>
+                              <Col xs={8} md={10}  ><input type='text' value={message} placeholder='Type a message ....'
+                                onChange={(e)=>setMessage(e.target.value)}
+                                onKeyPress={(e)=>e.key === 'Enter'?sendMessage(e):null}
+                                />
+                                </Col>
+                                <Col xs={2} >
+                               
+                                <button style={{
+                                    width:'6em',
+                                    height:'3em',
+                                    backgroundColor:'greenyellow'
+                                }} type="button">SEND</button>
+                                
+                               
+                                </Col>
+                          </Row>
+                      
+                          </Col>
+            
+                       </Row>
+                        </Col>
+            
+                        <Col className='d-none d-md-block'  md={3} >
+                         <Sidebar users={users} />
+                     </Col>
+                  
+                    </Row>
 
-           </Row>
-            </Col>
-
-            <Col className='d-none d-md-block'  md={3} >
-             <Sidebar users={users} />
-         </Col>
-      
-        </Row>
+                )
+            }
+       
         </Container>
     )
 }

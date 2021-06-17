@@ -15,7 +15,7 @@ io.on('connection',(socket)=>{
     console.log(`Someone connected to the server`);
 
     socket.on('join',({name,room},callback)=>{
-        console.log(name,room);
+       // console.log(name,room);
         const{user,error} = userControll.adduser({id:socket.id,name,room});
 
         if(error){
@@ -35,7 +35,7 @@ io.on('connection',(socket)=>{
     //getting event from the frontend
 
     socket.on('sendMessage',(message,callback)=>{
-        console.log(socket.id);
+       // console.log(socket.id);
         const user = userControll.Getuser(socket.id);
      //  console.log(user);
      const userInRoom  = userControll.getUsersInRoom(user?.room);
